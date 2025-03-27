@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja Czasu Pracy</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; }
+        label, input, button { display: block; margin: 10px 0; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <h2>Rejestracja Czasu Pracy</h2>
+    
+    <label>Imię i Nazwisko:</label>
+    <input type="text" id="name" placeholder="Wpisz imię i nazwisko">
+    
+    <label>Dzień tygodnia:</label>
+    <input type="text" id="day" placeholder="Np. Poniedziałek">
+    
+    <label>Godzina rozpoczęcia pracy:</label>
+    <input type="time" id="startTime">
+    
+    <label>Godzina zakończenia pracy:</label>
+    <input type="time" id="endTime">
+    
+    <button onclick="sendData()">Dodaj wpis do Google Sheets</button>
+
+    <script>
+        function sendData() {
+            let name = document.getElementById("name").value;
+            let day = document.getElementById("day").value;
+            let start = document.getElementById("startTime").value;
+            let end = document.getElementById("endTime").value;
+
+            if (!name || !day || !start || !end) {
+                alert("Proszę wypełnić wszystkie pola!");
+                return;
+            }
+
+            let data = { name, day, start, end };
+
+            fetch("https://script.google.com/macros/s/AKfycbx6Xy8DJOK_XKtqMfG-r8HGarLbvuB6XuCoPJVeXa1u-chmztorfWLTureb1Fkp5oPy6g/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }).then(() => {
+                alert("Dane zostały zapisane w Google Sheets!");
+                document.getElementById("name").value = "";
+                document.getElementById("day").value = "";
+                document.getElementById("startTime").value = "";
+                document.getElementById("endTime").value = "";
+            }).catch(err => console.error(err));
+        }
+    </script>
+
+</body>
+</html>
