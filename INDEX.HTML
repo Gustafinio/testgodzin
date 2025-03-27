@@ -13,6 +13,9 @@
 
     <h2>Rejestracja Czasu Pracy</h2>
     
+    <label>Stopień:</label>
+    <input type="text" id="degree" placeholder="Wpisz swój stopień">
+    
     <label>Imię i Nazwisko:</label>
     <input type="text" id="name" placeholder="Wpisz imię i nazwisko">
     
@@ -21,9 +24,10 @@
     
     <label>Godzina rozpoczęcia pracy:</label>
     <input type="time" id="startTime">
-    
+    <small>jak nowy dzien to od nowa trzeba zapisac</small>
     <label>Godzina zakończenia pracy:</label>
     <input type="time" id="endTime">
+    
     
     <button onclick="sendData()">Dodaj wpis do Google Sheets</button>
 
